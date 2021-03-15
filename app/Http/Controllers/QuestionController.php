@@ -13,10 +13,16 @@ class QuestionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth')->only([
+            'create',
+        ]);
+    }
     public function index()
     {
-        $question = Question::orderBy('id','DESC')->get();        
-        return view('question.index', compact('question'));
+        $questions = Question::orderBy('id','DESC')->get();      
+        return view('question.index', compact('questions'));
     }
 
     /**
@@ -42,7 +48,7 @@ class QuestionController extends Controller
             'text' => $request->text,
             'user_id' => Auth::id(),
             ]);
-        return redirect(route('question.index'));
+        return redirect(route('question.index'))->with('toast_success','Pertanyaan berhasil diinput');
     }
 
     /**
@@ -53,6 +59,7 @@ class QuestionController extends Controller
      */
     public function show(Question $question)
     {
+        return view('question.show',compact('question'));
 
     }
 
@@ -64,7 +71,7 @@ class QuestionController extends Controller
      */
     public function edit(Question $question)
     {
-        //
+        return view('question.edit',compact('question'));
     }
 
     /**
@@ -76,7 +83,11 @@ class QuestionController extends Controller
      */
     public function update(Request $request, Question $question)
     {
-        //
+        Question::where('id',$question->id)->update([
+            'title' => $request->title,
+            'text' => $request->text,
+        ]);
+        return redirect(route('question.show',['question' => $question]))->with('toast_info','Pertanyaan berhasil diupdate');
     }
 
     /**
@@ -87,6 +98,7 @@ class QuestionController extends Controller
      */
     public function destroy(Question $question)
     {
-        //
+        Question::destroy($question->id);
+        return redirect(route('question.index'))->with('toast_success','Pertanyaan berhasil didelete');
     }
 }
