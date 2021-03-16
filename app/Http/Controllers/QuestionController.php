@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Answer;
 use App\Models\Question;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,8 +16,8 @@ class QuestionController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth')->only([
-            'create',
+        $this->middleware('auth')->except([
+            'index','show'
         ]);
     }
     public function index()
@@ -59,7 +60,10 @@ class QuestionController extends Controller
      */
     public function show(Question $question)
     {
-        return view('question.show',compact('question'));
+        $answers = Answer::where('question_id',$question->id)
+        ->orderBy('created_at','DESC')
+        ->get();
+        return view('question.show',compact('question','answers'));
 
     }
 

@@ -6,16 +6,16 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 @endsection
 @section('content')
-    <h2>Details Questione</h2>
+    <h2>Details Questione #{{ $question->id }}</h2>
     <hr>
     <div class="card">
         <div class="card-header">
-            #{{ $question->id }}
+            Made by: {{ $question->user->name }} on {{ $question->created_at }}
         </div>
         <div class="card-body">
             <h5 class="card-title">{{ $question->title }}</h5>
             <p class="card-text">{!! $question->text !!}</p>
-            <a href="{{ route('question.edit', ['question' => $question]) }}"
+            <a href="{{ route('answer.create',['question'=>$question]) }}"
                 class="btn btn-success float-md-left">Answer</a>
             @auth
                 @if (Auth::user()->id == $question->user_id)
@@ -31,4 +31,9 @@
             @endauth
         </div>
     </div>
+    <hr>
+    <h4>Answer Count : {{ count($answers) }}</h4>
+    @foreach ($answers as $answer)
+    @include('components.answer',['answer' => $answer,'question' =>$question])
+    @endforeach    
 @endsection

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AnswerController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\QuestionController;
@@ -18,3 +19,11 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::resource('question', QuestionController::class);
+Route::prefix('question/{question}')->group(function (){
+    Route::resource('answer', AnswerController::class, [
+        'except' => ['show','index']
+    ])->middleware('auth');
+    Route::post('/answer/{answer}',[AnswerController::class,'approve'])->name('answer.approve')->middleware('auth');
+    Route::put('/answer/{answer}',[AnswerController::class,'unapprove'])->name('answer.unapprove')->middleware('auth');
+});
+
