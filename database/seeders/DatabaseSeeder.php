@@ -19,6 +19,8 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             QuestionSeeder::class,
             AnswerSeeder::class,
+            TagSeeder::class,
+            QuestionTagSeeder::class,
         ]);
     }
 }

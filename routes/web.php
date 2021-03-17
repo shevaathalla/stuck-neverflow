@@ -4,6 +4,8 @@ use App\Http\Controllers\AnswerController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\TagController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,4 +28,7 @@ Route::prefix('question/{question}')->group(function (){
     Route::post('/answer/{answer}/approve',[AnswerController::class,'approve'])->name('answer.approve')->middleware('auth');
     Route::post('/answer/{answer}/unapprove',[AnswerController::class,'unapprove'])->name('answer.unapprove')->middleware('auth');
 });
+Route::resource('tag', TagController::class,[
+    'only' => ['index','show','store','destroy']
+]);
 

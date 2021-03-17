@@ -64,7 +64,7 @@ class AnswerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Question $question, Answer $answer)
-    {
+    {       
         Answer::destroy($answer->id);
         return redirect(route('question.show',['question' => $question]))->with('toast_success','Jawaban berhasil didelete');
     }

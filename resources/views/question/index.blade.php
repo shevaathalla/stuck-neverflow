@@ -24,7 +24,12 @@
               <h5 class="card-title">{{ $question->title }}</h5>
               <h6 class="card-subtitle mb-2 text-muted">Made by: {{ $question->user->name }} on {{ $question->created_at }}</h6>
               <p class="card-text">{!! $question->text !!}</p>
-              <a href="{{ route('question.show',['question' => $question]) }}" class="card-link">Show Detail</a>              
+              @foreach ($question->tags as $tag)
+              <a href="{{ route('tag.show',['tag' =>$tag]) }}" class="btn btn-primary my-1">{{ $tag->name  }}</a>
+              @endforeach                            
+            </div>
+            <div class="card-footer">
+                <a href="{{ route('question.show',['question' => $question]) }}" class="card-link">Show Detail</a>              
             </div>
           </div>
         @endforeach        

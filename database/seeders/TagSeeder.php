@@ -2,12 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Question;
 use App\Models\Tag;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
-class QuestionSeeder extends Seeder
+class TagSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,6 +14,6 @@ class QuestionSeeder extends Seeder
      */
     public function run()
     {
-        Question::factory()->times(10)->create();
+        Tag::factory()->times(10)->create();
     }
 }

@@ -13,14 +13,22 @@
             Made by: {{ $question->user->name }} on {{ $question->created_at }}
         </div>
         <div class="card-body">
-            <h5 class="card-title">{{ $question->title }}</h5>
-            <p class="card-text">{!! $question->text !!}</p>
-            <a href="{{ route('answer.create', ['question' => $question]) }}" class="btn btn-success float-md-left"> <i
-                    class="fas fa-reply"> Answer</i></a>
+            <h3 class="card-title">{{ $question->title }}</h5>
+                <p class="card-text">{!! $question->text !!}</p>
+                @foreach ($question->tags as $tag)
+                    <a href="{{ route('tag.show',['tag' =>$tag]) }}" class="btn btn-primary my-1">{{ $tag->name }}</a>
+                @endforeach
+        </div>
+        <div class="card-footer">
+            <a href="{{ route('answer.create', ['question' => $question]) }}" class="btn btn-success float-md-left"> 
+                <i class="fas fa-reply"> 
+                    Answer
+                </i>
+            </a>
             @auth
                 @if (Auth::user()->id == $question->user_id)
                     <a href="{{ route('question.edit', ['question' => $question]) }}" class="btn btn-info float-md-right"><i
-                            class="fa fa-edit"> Edit</i></a>                   
+                            class="fa fa-edit"> Edit</i></a>
                     <a href="{{ route('question.destroy', ['question' => $question]) }}"
                         class="btn btn-danger float-md-right mr-lg-2" data-toggle="modal" data-target="#deleteModal">
                         <i class="fa fa-trash-alt">&nbsp; Delete</i>

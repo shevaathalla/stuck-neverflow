@@ -6,6 +6,7 @@ use App\Models\Answer;
 use App\Models\Question;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Tag;
 
 class QuestionController extends Controller
 {
@@ -17,12 +18,12 @@ class QuestionController extends Controller
     public function __construct()
     {
         $this->middleware('auth')->except([
-            'index','show'
+            'index', 'show'
         ]);
     }
     public function index()
     {
-        $questions = Question::orderBy('id','DESC')->get();      
+        $questions = Question::orderBy('id', 'DESC')->get();
         return view('question.index', compact('questions'));
     }
 
@@ -33,7 +34,8 @@ class QuestionController extends Controller
      */
     public function create()
     {
-        return view('question.create');
+        $tags = Tag::orderBy('name', 'asc')->get();
+        return view('question.create', compact('tags'));
     }
 
     /**
@@ -43,13 +45,26 @@ class QuestionController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {                
+    {
+        // dd($request);        
         $question = Question::create([
             'title' => $request->title,
             'text' => $request->text,
             'user_id' => Auth::id(),
-            ]);
-        return redirect(route('question.index'))->with('toast_success','Pertanyaan berhasil diinput');
+        ]);
+        $tags = $request->tag;
+        if (!empty($tags)) {
+            foreach ($tags as $tagName) {
+                $tag = Tag::firstOrCreate([
+                    'name' => $tagName,
+                ]);
+                if ($tag) {
+                    $tagNames[] = $tag->id;
+                }
+            }
+            $question->tags()->syncWithoutDetaching($tagNames);
+        }
+        return redirect(route('question.index'))->with('toast_success', 'Pertanyaan berhasil diinput');
     }
 
     /**
@@ -59,12 +74,11 @@ class QuestionController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Question $question)
-    {
-        $answers = Answer::where('question_id',$question->id)
-        ->orderBy('created_at','DESC')
-        ->get();
-        return view('question.show',compact('question','answers'));
-
+    {        
+        $answers = Answer::where('question_id', $question->id)
+            ->orderBy('created_at', 'DESC')
+            ->get();
+        return view('question.show', compact('question', 'answers'));
     }
 
     /**
@@ -75,7 +89,7 @@ class QuestionController extends Controller
      */
     public function edit(Question $question)
     {
-        return view('question.edit',compact('question'));
+        return view('question.edit', compact('question'));
     }
 
     /**
@@ -86,12 +100,12 @@ class QuestionController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Question $question)
-    {        
-        Question::where('id',$question->id)->update([
+    {
+        Question::where('id', $question->id)->update([
             'title' => $request->title,
             'text' => $request->text,
         ]);
-        return redirect(route('question.show',['question' => $question]))->with('toast_info','Pertanyaan berhasil diupdate');
+        return redirect(route('question.show', ['question' => $question]))->with('toast_info', 'Pertanyaan berhasil diupdate');
     }
 
     /**
@@ -103,6 +117,6 @@ class QuestionController extends Controller
     public function destroy(Question $question)
     {
         Question::destroy($question->id);
-        return redirect(route('question.index'))->with('toast_success','Pertanyaan berhasil didelete');
+        return redirect(route('question.index'))->with('toast_success', 'Pertanyaan berhasil didelete');
     }
 }
