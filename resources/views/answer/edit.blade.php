@@ -19,7 +19,7 @@
                 {{ $answer->text }}
             </textarea>
             <div class="my-4">
-                <input type="submit" value="Update" onclick="return confirm('Yakin ingin mengedit pertanyaan ini?')" class="btn btn-primary mr-auto">
+                <button type="submit" onclick="return confirm('Yakin ingin mengedit pertanyaan ini?')" class="btn btn-primary mr-auto"><i class="fas fa-upload"> Update</i></button>
                 <input type="reset" value="Reset" class="btn btn-secondary">
             </div>            
         </form>

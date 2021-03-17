@@ -86,7 +86,7 @@ class QuestionController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Question $question)
-    {
+    {        
         Question::where('id',$question->id)->update([
             'title' => $request->title,
             'text' => $request->text,

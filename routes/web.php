@@ -23,7 +23,7 @@ Route::prefix('question/{question}')->group(function (){
     Route::resource('answer', AnswerController::class, [
         'except' => ['show','index']
     ])->middleware('auth');
-    Route::post('/answer/{answer}',[AnswerController::class,'approve'])->name('answer.approve')->middleware('auth');
-    Route::put('/answer/{answer}',[AnswerController::class,'unapprove'])->name('answer.unapprove')->middleware('auth');
+    Route::post('/answer/{answer}/approve',[AnswerController::class,'approve'])->name('answer.approve')->middleware('auth');
+    Route::post('/answer/{answer}/unapprove',[AnswerController::class,'unapprove'])->name('answer.unapprove')->middleware('auth');
 });
 

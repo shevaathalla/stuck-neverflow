@@ -18,15 +18,10 @@
                 </a>
                 <!-- Dropdown - User Information -->
                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                    <a class="dropdown-item" href="{{ route('logout') }}" data-toggle="modal" data-target="#logoutModal"
-                        onclick="event.preventDefault();
-                    document.getElementById('logout-form').submit();">
+                    <a class="dropdown-item" href="{{ route('logout') }}" data-toggle="modal" data-target="#logoutModal">
                         <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                        Logout
-                    </a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                        @csrf
-                    </form>
+                        {{ __('Logout') }}
+                    </a>                    
                 </div>
             </li>
         @endauth
@@ -48,3 +43,11 @@
     </ul>
 
 </nav>
+<!-- Logout Modal-->
+@include('components.modal',[
+    'title_message' => 'Ready to Leave?',
+    'message' => "Tekan tombol Logout dibawah ini unutk melakukan logout",
+    'data_target_id' => 'logoutModal',
+    'form_id' => 'logout-form',
+    'route' => 'logout',
+    'button_text' => 'Logout',])

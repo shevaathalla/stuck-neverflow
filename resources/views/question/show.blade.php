@@ -15,18 +15,16 @@
         <div class="card-body">
             <h5 class="card-title">{{ $question->title }}</h5>
             <p class="card-text">{!! $question->text !!}</p>
-            <a href="{{ route('answer.create',['question'=>$question]) }}"
-                class="btn btn-success float-md-left">Answer</a>
+            <a href="{{ route('answer.create', ['question' => $question]) }}" class="btn btn-success float-md-left"> <i
+                    class="fas fa-reply"> Answer</i></a>
             @auth
                 @if (Auth::user()->id == $question->user_id)
-                    <a href="{{ route('question.edit', ['question' => $question]) }}"
-                        class="btn btn-info float-md-right">Edit</a>
-                    <form id="form-delete" action="{{ route('question.destroy', ['question' => $question]) }}" method="post">
-                        @csrf
-                        @method('Delete')
-                        <input type="hidden" class="delete-id" value="{{ $question->id }}">
-                        <input type="submit" value="Delete" onclick="return confirm('Yakin ingin menghapus pertanyaan ini?')" class="btn btn-danger float-md-right mr-lg-2">
-                    </form>
+                    <a href="{{ route('question.edit', ['question' => $question]) }}" class="btn btn-info float-md-right"><i
+                            class="fa fa-edit"> Edit</i></a>                   
+                    <a href="{{ route('question.destroy', ['question' => $question]) }}"
+                        class="btn btn-danger float-md-right mr-lg-2" data-toggle="modal" data-target="#deleteModal">
+                        <i class="fa fa-trash-alt">&nbsp; Delete</i>
+                    </a>
                 @endif
             @endauth
         </div>
@@ -34,6 +32,16 @@
     <hr>
     <h4>Answer Count : {{ count($answers) }}</h4>
     @foreach ($answers as $answer)
-    @include('components.answer',['answer' => $answer,'question' =>$question])
-    @endforeach    
+        @include('components.answer',['answer' => $answer,'question' =>$question])
+    @endforeach
+    <!-- Delete Modal-->
+    @include('components.modal',[
+    'title_message' => 'Are you sure?',
+    'message' => "Press red delete button to delete this question",
+    'data_target_id' => 'deleteModal',
+    'form_id' => 'delete-form',
+    'route' => 'question.destroy',
+    'params' => ['question' => $question],
+    'button_text' => 'Delete',
+    'method' => 'Delete'])
 @endsection

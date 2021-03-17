@@ -3,9 +3,16 @@
     <title>SN - Questions</title>
 @endsection
 @section('content')
-    <h2 class="text-gray-700">
-        All Question
-    </h2>
+<div class="row justify-content-between">
+    <div class="col">
+        <h2 class="text-gray-700">
+            All Question
+        </h2>
+    </div>   
+    <div class="col">
+        <a href="{{ route('question.create') }}" class="btn btn-success float-right mr-3"> <i class="fas fa-plus">  Create</i></a>
+    </div>     
+</div>    
     <hr>
     <div class="col-md-12">
         @foreach ($questions as $question)

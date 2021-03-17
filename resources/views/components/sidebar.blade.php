@@ -35,8 +35,8 @@
         </a>
         <div id="collapseTwo" class="{{ Route::is(['question.create','question.index']) ? 'collapse show' : 'collapse' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">                
-                <a class="collapse-item {{ Route::is('question.create') ? 'active' : '' }}" href="{{ route('question.create') }}">Create</a>
-                <a class="collapse-item {{ Route::is('question.index') ? 'active' : '' }}" href="{{ route('question.index') }}">List</a>
+                <a class="collapse-item {{ Route::is('question.create') ? 'active' : '' }}" href="{{ route('question.create') }}"> <i class="fas fa-plus"></i>  Create</a>
+                <a class="collapse-item {{ Route::is('question.index') ? 'active' : '' }}" href="{{ route('question.index') }}"> <i class="fas fa-list"></i> List</a>
             </div>
         </div>
     </li>

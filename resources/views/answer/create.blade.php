@@ -16,7 +16,7 @@
             <label for="content" class="col-form-label text-gray-700" >Type your answer below</label>
             <textarea name="text" id="text" cols="30" rows="10"></textarea>
             <div class="my-4">
-                <input type="submit" value="Submit" class="btn btn-primary mr-auto">            
+                <button type="submit" class="btn btn-primary mr-auto"> Submit <i class="fas fa-arrow-alt-circle-right ml-2"></i></button>
             </div>            
 
         </form>
