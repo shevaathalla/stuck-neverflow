@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AnswerController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\QuestionController;
@@ -17,9 +18,8 @@ use App\Http\Controllers\TagController;
 |
 */
 
-Auth::routes();
+Auth::routes(['verify'=>true]);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::resource('question', QuestionController::class);
 Route::prefix('question/{question}')->group(function (){
     Route::resource('answer', AnswerController::class, [
@@ -31,4 +31,6 @@ Route::prefix('question/{question}')->group(function (){
 Route::resource('tag', TagController::class,[
     'only' => ['index','show','store','destroy']
 ]);
+Route::get('/dashboard',[ProfileController::class,'dashboard'])->name('dashboard');
+Route::view('/','home')->name('home');
 
