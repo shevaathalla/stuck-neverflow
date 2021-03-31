@@ -10,6 +10,13 @@ use Illuminate\Support\Facades\Auth;
 class AnswerController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('answer.maker')->only([
+            'edit', 'update', 'destroy'
+        ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

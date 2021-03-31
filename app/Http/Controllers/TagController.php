@@ -10,7 +10,7 @@ class TagController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth')->except([
+        $this->middleware(['auth','admin'])->except([
             'index','show'
         ]);
     }

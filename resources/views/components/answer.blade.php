@@ -31,11 +31,43 @@
                                     </div>
                                     <div class="col">
                                         @if (Auth::id() == $comment->user_id)
-                                        <form action="{{ route('comment.destroy', ['comment' => $comment]) }}"
-                                            method="post">
-                                        <button type="submit" class="btn btn-danger"> <i class="fas fa-trash"></i> Delete</button>
-                                        @endif                                        
-                                        </form>
+                                            <a href="{{ route('comment.destroy', ['comment' => $comment]) }}"
+                                                class="btn btn-danger" data-target="#deleteAnswerCommentModal{{ $comment->id }}" data-toggle="modal"> <i class="fas fa-trash"></i>
+                                                Delete
+                                            </a>
+                                            <!-- Delete Answer Comment Modal-->
+                                            <div class="modal fade" id="deleteAnswerCommentModal{{ $comment->id }}"
+                                                tabindex="0" role="dialog" aria-labelledby="exampleModalLabel"
+                                                aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">
+                                                                {{ __('Are you Sure want tu delete this Comment') }}</h5>
+                                                            <button class="close" type="button" data-dismiss="modal"
+                                                                aria-label="Close">
+                                                                <span aria-hidden="true">×</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">{{ 'deleted data is irreversible' }}
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button class="btn btn-link" type="button"
+                                                                data-dismiss="modal">{{ __('Cancel') }}</button>
+                                                            <a class="btn btn-danger"
+                                                                href="{{ route('comment.destroy', ['comment' => $comment]) }}"
+                                                                onclick="event.preventDefault(); document.getElementById('delete-answer-comment-form-{{ $comment->id }}').submit();">{{ __('Delete') }}</a>
+                                                            <form id="delete-answer-comment-form-{{ $comment->id }}"
+                                                                action="{{ route('comment.destroy', ['comment' => $comment]) }}"
+                                                                method="POST" style="display: none;">
+                                                                @csrf
+                                                                @method('delete')
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
                             @endforeach
@@ -68,20 +100,45 @@
                         @endif
 
                     @endauth
-                    <form action="{{ route('answer.destroy', ['question' => $question, 'answer' => $answer]) }}"
-                        method="post">
-                        @csrf
-                        @method('Delete')
-                        @auth
-                            @if (Auth::user()->id == $answer->user->id)
-                                <a href="{{ route('answer.edit', ['question' => $question, 'answer' => $answer]) }}"
-                                    class="btn btn-secondary float-md-right ml-2"> <i class="fas fa-edit"> Edit</i></a>
-                                <button type="submit" class="btn btn-danger float-md-right"
-                                    onclick="return confirm('are you sure want to delete this answer')"> <i
-                                        class="fas fa-trash-alt"> Delete</i> </button>
-                            @endif
-                        @endauth
-                    </form>
+                    @auth
+                        @if (Auth::user()->id == $answer->user->id)
+                            <a href="{{ route('answer.edit', ['question' => $question, 'answer' => $answer]) }}"
+                                class="btn btn-secondary float-md-right ml-2"> <i class="fas fa-edit"> Edit</i></a>
+                            <a href="{{ route('answer.destroy', ['answer' => $answer, 'question' => $question]) }}"
+                                class="btn btn-danger float-md-right" data-toggle="modal"
+                                data-target="#deleteAnswerModal{{ $answer->id }}"> <i class="fas fa-trash-alt">
+                                    Delete</i>
+                            </a>
+                            <!-- Delete Modal-->
+                            <div class="modal fade" id="deleteAnswerModal{{ $answer->id }}" tabindex="0" role="dialog"
+                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">{{ __('Are You sure wantu delete this Answer?') }}</h5>
+                                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">{{ 'deleted data is irreversible' }}</div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-link" type="button"
+                                                data-dismiss="modal">{{ __('Cancel') }}</button>
+                                            <a class="btn btn-danger"
+                                                href="{{ route('answer.destroy', ['question' => $question, 'answer' => $answer]) }}"
+                                                onclick="event.preventDefault(); document.getElementById('delete-answer-form-{{ $answer->id }}').submit();">{{ __('Delete') }}</a>
+                                            <form id="delete-answer-form-{{ $answer->id }}"
+                                                action="{{ route('answer.destroy', ['question' => $question, 'answer' => $answer]) }}"
+                                                method="POST" style="display: none;">
+                                                @csrf
+                                                @method('delete')
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+                    @endauth
                 </div>
             </div>
         </div>

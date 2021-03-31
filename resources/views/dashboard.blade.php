@@ -3,8 +3,8 @@
     <title>SN - Dashboard</title>
 @endsection
 @section('content')
-    <h1>Hellow User</h1>
+    <h1>Hellow {{ Auth::user()->name }}</h1>
     <p>
-        This app still in development...
+        ini Dashboard tp belum jadi
     </p>
 @endsection

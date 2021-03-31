@@ -44,7 +44,14 @@
         <a class="nav-link {{ Route::is('tag.index') ? 'active' : '' }}" href="{{ route('tag.index') }}">
             <i class="fas fa-fw fa-hashtag"></i>
             <span>Tag List</span></a>
+    </li>
+    @if (Auth::user()->role->name == 'admin')
+    <li class="nav-item">
+        <a class="nav-link {{ Route::is('tag.index') ? 'active' : '' }}" href="{{ route('tag.index') }}">
+            <i class="fas fa-fw fa-hashtag"></i>
+            <span>User List</span></a>
     </li>     
+    @endif        
 
     <!-- Sidebar Toggler (Sidebar) -->
     <div class="text-center d-none d-md-inline">

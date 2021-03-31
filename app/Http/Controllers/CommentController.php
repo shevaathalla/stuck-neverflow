@@ -10,6 +10,11 @@ use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function commentQuestionStore(Request $request, Question $question){
         Comment::create([
             'text' => $request->text,

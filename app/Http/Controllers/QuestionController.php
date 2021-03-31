@@ -20,10 +20,14 @@ class QuestionController extends Controller
         $this->middleware(['auth','verified'])->except([
             'index', 'show'
         ]);
+        $this->middleware('question.maker')->only([
+            'edit', 'update', 'destroy'
+        ]);
     }
     public function index()
     {
         $questions = Question::orderBy('id', 'DESC')->get();
+        // dd($questions);  
         return view('question.index', compact('questions'));
     }
 
@@ -77,7 +81,7 @@ class QuestionController extends Controller
     {        
         $answers = Answer::where('question_id', $question->id)
             ->orderBy('created_at', 'DESC')
-            ->get();
+            ->get();        
         return view('question.show', compact('question', 'answers'));
     }
 
