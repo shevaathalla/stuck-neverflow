@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\TagController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,24 +20,29 @@ use App\Http\Controllers\TagController;
 |
 */
 
-Auth::routes(['verify'=>true]);
+Auth::routes(['verify' => true]);
 
 Route::resource('question', QuestionController::class);
-Route::prefix('question/{question}')->group(function (){
+Route::prefix('question/{question}')->group(function () {
     Route::resource('answer', AnswerController::class, [
-        'except' => ['show','index']
+        'except' => ['show', 'index']
     ])->middleware('auth');
-    Route::post('/answer/{answer}/approve',[AnswerController::class,'approve'])->name('answer.approve')->middleware('auth');
-    Route::put('/answer/{answer}/unapprove',[AnswerController::class,'unapprove'])->name('answer.unapprove')->middleware('auth');
+    Route::post('/answer/{answer}/approve', [AnswerController::class, 'approve'])->name('answer.approve')->middleware('auth');
+    Route::put('/answer/{answer}/unapprove', [AnswerController::class, 'unapprove'])->name('answer.unapprove')->middleware('auth');
 });
-Route::resource('tag', TagController::class,[
-    'only' => ['index','show','store','destroy']
+Route::resource('tag', TagController::class, [
+    'only' => ['index', 'show', 'store', 'destroy']
 ]);
-Route::get('/dashboard',[ProfileController::class,'dashboard'])->name('dashboard');
-Route::view('/','home')->name('home');
-Route::get('/comment/{question}/create',[CommentController::class,'commentQuestionCreate'])->name('commentQuestion.create');
-Route::get('/comment/answer/{answer}/create',[CommentController::class,'commentAnswerCreate'])->name('commentAnswer.create');
-Route::post('/comment/{question}',[CommentController::class,'commentQuestionStore'])->name('commentQuestion.store');
-Route::post('/comment/answer/{answer}',[CommentController::class,'commentAnswerStore'])->name('commentAnswer.store');
-Route::delete('/comment/{comment}',[CommentController::class,'destroy'])->name('comment.destroy');
+Route::view('/dashboard', 'dashboard')->name('dashboard');
+Route::view('/', 'home')->name('home');
+Route::prefix('comment')->group(function () {
+    Route::get('{question}/create', [CommentController::class, 'commentQuestionCreate'])->name('commentQuestion.create');
+    Route::get('answer/{answer}/create', [CommentController::class, 'commentAnswerCreate'])->name('commentAnswer.create');
+    Route::post('{question}', [CommentController::class, 'commentQuestionStore'])->name('commentQuestion.store');
+    Route::post('answer/{answer}', [CommentController::class, 'commentAnswerStore'])->name('commentAnswer.store');
+    Route::delete('{comment}', [CommentController::class, 'destroy'])->name('comment.destroy');
+});
 
+Route::resource('user', UserController::class,[
+    'only' => ['index','show','destroy']
+])->middleware(['auth','admin']);

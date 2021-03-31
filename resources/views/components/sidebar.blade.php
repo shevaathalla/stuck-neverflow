@@ -10,12 +10,21 @@
 
     <!-- Nav Item - Dashboard -->
     @auth
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        Main
+    </div>
     <!-- Divider -->    
     <hr class="sidebar-divider my-0">
     <li class="nav-item {{ Route::is('dashboard') ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('dashboard') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
+    </li>
+    <li class="nav-item {{ Route::is('dashboard') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('dashboard') }}">
+            <i class="fas fa-fw fa-user-tie"></i>
+            <span>User Detail</span></a>
     </li>
     @endauth    
 
@@ -40,15 +49,15 @@
             </div>
         </div>
     </li>
-    <li class="nav-item">
-        <a class="nav-link {{ Route::is('tag.index') ? 'active' : '' }}" href="{{ route('tag.index') }}">
+    <li class="nav-item {{ Route::is(['tag.index']) ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('tag.index') }}">
             <i class="fas fa-fw fa-hashtag"></i>
             <span>Tag List</span></a>
     </li>
     @if (Auth::user()->role->name == 'admin')
-    <li class="nav-item">
-        <a class="nav-link {{ Route::is('tag.index') ? 'active' : '' }}" href="{{ route('tag.index') }}">
-            <i class="fas fa-fw fa-hashtag"></i>
+    <li class="nav-item  {{ Route::is(['user.index']) ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('user.index') }}">
+            <i class="fas fa-fw fa-user-astronaut"></i>
             <span>User List</span></a>
     </li>     
     @endif        
