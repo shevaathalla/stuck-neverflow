@@ -44,5 +44,5 @@ Route::prefix('comment')->group(function () {
 });
 
 Route::resource('user', UserController::class,[
-    'only' => ['index','show','destroy']
-])->middleware(['auth','admin']);
+    'except' => ['create']
+]);

@@ -1,5 +1,9 @@
+@auth
+<ul class="navbar-nav {{ Auth::user()->role->name == 'admin' ? 'bg-gradient-dark' : 'bg-gradient-primary' }} sidebar sidebar-dark accordion" id="accordionSidebar">    
+@endauth
+@guest
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
+@endguest
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('home') }}">
         <div class="sidebar-brand-icon rotate-n-15">
@@ -21,8 +25,8 @@
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
     </li>
-    <li class="nav-item {{ Route::is('dashboard') ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('dashboard') }}">
+    <li class="nav-item {{ Route::is('user.show') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('user.show',['user'=> Auth::user()]) }}">
             <i class="fas fa-fw fa-user-tie"></i>
             <span>User Detail</span></a>
     </li>
@@ -54,6 +58,7 @@
             <i class="fas fa-fw fa-hashtag"></i>
             <span>Tag List</span></a>
     </li>
+    @auth
     @if (Auth::user()->role->name == 'admin')
     <li class="nav-item  {{ Route::is(['user.index']) ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('user.index') }}">
@@ -61,6 +66,7 @@
             <span>User List</span></a>
     </li>     
     @endif        
+    @endauth    
 
     <!-- Sidebar Toggler (Sidebar) -->
     <div class="text-center d-none d-md-inline">

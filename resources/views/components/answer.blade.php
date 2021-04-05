@@ -1,9 +1,10 @@
 <div class="card mb-2">
     <div class="card-body {{ $answer->approve == 1 ? 'bg-success text-gray-100' : ' ' }}">
-        <h5 class="card-title{{ $answer->approve == 1 ? 'bg-success text-white' : ' ' }}">Answer Made by
-            {{ $answer->user->name }} {{ $answer->approve == 1 ? '(APPROVED By Question Maker)' : ' ' }}</h5>
+        <h6 class="card-title {{ $answer->approve == 1 ? 'bg-success text-white' : 'text-gray-900' }}">Answer Made by
+            <a href="{{ route('user.show',['user' => $answer->user]) }}">{{ $answer->user->name }}</a>
+            {{ $answer->approve == 1 ? '(APPROVED By Question Maker)' : ' ' }}</h6>
         <h6 class="card-subtitle mb-2">On {{ $answer->created_at }}</h6>
-        <h5>{!! $answer->text !!}</h5>
+        <h5 class="text-gray-900">{!! $answer->text !!}</h5>
     </div>
     <div class="card-footer">
         <div class="form-group">
@@ -23,8 +24,8 @@
                             @foreach ($answer->comments as $comment)
                                 <div class="row">
                                     <div class="col-sm-9">
-                                        <p style="padding: 0px; margin: 0px">{{ $comment->text }} - <a
-                                                href="">{{ $comment->user->name }}</a></p>
+                                        <p style="padding: 0px; margin: 0px">{{ $comment->text }} - <a class="card-link"
+                                                href="{{ route('user.show',['user' => $comment->user]) }}">{{ $comment->user->name }}</a></p>
                                         <p style="padding: 0px; margin: 0px" class="text-gray-500">
                                             {{ $comment->created_at }}</p>
                                         <hr style="padding: 0px; margin: 0px">

@@ -25,8 +25,8 @@
             </div>
         </div>
         <div class="card-body">
-            <h3 class="card-title">{{ $question->title }}</h5>
-                <p class="card-text">{!! $question->text !!}</p>
+            <h3 class="card-title text-primary">{{ $question->title }}</h5>
+                <div class="card-text text-gray-900" style="font-size: 20px">{!! $question->text !!}</div>
                 @foreach ($question->tags as $tag)
                     <a href="{{ route('tag.show', ['tag' => $tag]) }}"
                         class="btn btn-primary my-1">{{ $tag->name }}</a>
@@ -50,8 +50,8 @@
                                     <div class="row">
                                         <div class="col-sm-10">
 
-                                            <p style="padding: 0px; margin: 0px">{{ $comment->text }} - <a
-                                                    href="">{{ $comment->user->name }}</a></p>
+                                            <p style="padding: 0px; margin: 0px">{{ $comment->text }} - <a class="card-link"
+                                                    href="{{ route('user.show',['user' => $comment->user]) }}">{{ $comment->user->name }}</a></p>
                                             <p style="padding: 0px; margin: 0px" class="text-gray-500">
                                                 {{ $comment->created_at }}</p>
                                             <hr style="padding: 0px; margin: 0px">

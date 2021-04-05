@@ -21,8 +21,12 @@
     <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
     @yield('style')
 </head>
-
+@auth
+<body class=" {{ Auth::user()->role->name =='admin' ? 'bg-gradient-dark' : 'bg-gradient-primary' }}">
+@endauth
+@guest
 <body class="bg-gradient-primary">
+@endguest
 
     @yield('content')
     <!-- Bootstrap core JavaScript-->

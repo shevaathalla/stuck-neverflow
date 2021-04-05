@@ -25,7 +25,7 @@ class QuestionFactory extends Factory
         $users = User::pluck('id')->toArray();
         return [
             'title' => $this->faker->sentence(),
-            'text' => $this->faker->text(100),
+            'text' => $this->faker->text(200),
             'user_id' => $this->faker->randomElement($users),
         ];
     }

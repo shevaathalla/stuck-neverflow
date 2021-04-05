@@ -35,7 +35,7 @@
                         @foreach ($users as $user)
                         <tr>
                             <td>{{ $user->id }}</td>
-                            <td>{{ $user->name }}</td>
+                            <td><a class="card-link font-weight-bold" href="{{ route('user.show',['user'=>$user]) }}">{{ $user->name }}</a></td>
                             <td>{{ $user->email }}</td>
                             <td>
                                 <button class="btn btn-circle btn-danger"><i class="fas fa-trash-alt"></i></button>
