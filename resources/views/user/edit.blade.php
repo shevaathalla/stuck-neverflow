@@ -20,11 +20,9 @@
 
         <div class="card-body">
 
-            <form method="POST" action="{{ route('user.update', ['user' => Auth::user()]) }}" autocomplete="off">
-                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-
-                <input type="hidden" name="_method" value="PUT">
-
+            <form method="POST" action="{{ route('user.update', ['user' => Auth::user()]) }}" autocomplete="off" enctype="multipart/form-data">
+                @method('PUT')
+                @csrf           
                 <h6 class="heading-small text-muted mb-4">User information</h6>
 
                 <div class="pl-lg-4">
@@ -39,10 +37,9 @@
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group focused">
-                                <label for="profile-pic" class="form-control-label">Profile Pic <span
+                                <label for="avatar" class="form-control-label">Profile Pic <span
                                         class="small text-danger">*</span></label>
-                                <input type="file" class="form-control-file" name="profile-pic" id="profile-pic"
-                                    accept=".jpeg,.jpg,.png">
+                                <input type="file" class="form-control-file" name="avatar" id="avatar" accept=".jpeg,.jpg,.png">
                             </div>
                         </div>
                     </div>

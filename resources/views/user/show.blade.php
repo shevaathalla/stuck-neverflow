@@ -34,9 +34,11 @@
                 </div>
                 <div class="col-md border-left">
                     <div class="row justify-content-md-center">
+                        @if ($user->avatar != null)
                         <div class="mb-4 mt-4">
-                            <img src="{{ asset('img/undraw_profile.svg') }}" style="width: 150px; height: 150px;" alt="">
-                        </div>                        
+                            <img class="image rounded-circle" src="{{asset('storage/images/'.$user->avatar)}}" style="width: 150px; height: 150px;" alt="">
+                        </div>                 
+                        @endif                               
                     </div>
                     <div class="row">
                             <div class="col-md">

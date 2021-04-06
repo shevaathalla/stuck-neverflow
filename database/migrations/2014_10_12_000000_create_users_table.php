@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('avatar')->default('undraw_profile.svg');            
             $table->foreignId('role_id')->default('1')->constrained()->onDelete('cascade');
             $table->rememberToken();
             $table->timestamps();

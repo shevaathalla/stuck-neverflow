@@ -160,7 +160,8 @@ return [
         Illuminate\Session\SessionServiceProvider::class,
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
-        Illuminate\View\ViewServiceProvider::class,        
+        Illuminate\View\ViewServiceProvider::class,  
+        Intervention\Image\ImageServiceProvider::class,      
 
         /*
          * Package Service Providers...
@@ -228,7 +229,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
-
+        'Image' => Intervention\Image\Facades\Image::class,
     ],
 
 ];

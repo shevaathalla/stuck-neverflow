@@ -29,7 +29,7 @@
                 <div class="card-text text-gray-900" style="font-size: 20px">{!! $question->text !!}</div>
                 @foreach ($question->tags as $tag)
                     <a href="{{ route('tag.show', ['tag' => $tag]) }}"
-                        class="btn btn-primary my-1">{{ $tag->name }}</a>
+                        class="btn btn-primary round my-1" style="font-size: 70%">{{ $tag->name }}</a>
                 @endforeach
         </div>
         <div class="card-footer">
