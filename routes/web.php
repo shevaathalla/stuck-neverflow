@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AnswerController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\PDFController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -29,6 +30,7 @@ Route::prefix('question/{question}')->group(function () {
     ])->middleware('auth');
     Route::post('/answer/{answer}/approve', [AnswerController::class, 'approve'])->name('answer.approve')->middleware('auth');
     Route::put('/answer/{answer}/unapprove', [AnswerController::class, 'unapprove'])->name('answer.unapprove')->middleware('auth');
+    Route::post('/generatepdf',[PDFController::class,'question'])->name('question.generatepdf');
 });
 Route::resource('tag', TagController::class, [
     'only' => ['index', 'show', 'store', 'destroy']
@@ -46,3 +48,4 @@ Route::prefix('comment')->group(function () {
 Route::resource('user', UserController::class,[
     'except' => ['create']
 ]);
+Route::view('/test', 'pdf.question');

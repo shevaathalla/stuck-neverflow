@@ -30,6 +30,11 @@
             <i class="fas fa-fw fa-user-tie"></i>
             <span>User Detail</span></a>
     </li>
+    <li class="nav-item {{ Route::is('user.show') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('user.show',['user'=> Auth::user()]) }}">
+            <i class="fas fa-fw fa-user-tie"></i>
+            <span>User Article</span></a>
+    </li>
     @endauth    
 
     <!-- Heading -->

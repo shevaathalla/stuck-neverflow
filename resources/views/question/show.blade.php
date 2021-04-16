@@ -15,12 +15,16 @@
                     <h3 class="text-lg"> Made by: {{ $question->user->name }} on {{ $question->created_at }}</h3>
                 </div>
                 <div class="col">
-                    <a href="{{ route('answer.create', ['question' => $question]) }}"
-                        class="btn btn-success float-md-right">
-                        <i class="fas fa-reply">
-                            Answer
-                        </i>
-                    </a>
+                    <form action="{{ route('question.generatepdf',['question'=> $question]) }}" method="post" class="form-inline float-right">
+                        @csrf
+                        <button type="submit" class="btn btn-secondary mr-3" > Export <i class="fa fa-file-pdf ml-2"></i></button>
+                        <a href="{{ route('answer.create', ['question' => $question]) }}"
+                            class="btn btn-success float-md-right">
+                            <i class="fas fa-reply">
+                                Answer
+                            </i>
+                        </a>                    
+                    </form>                                        
                 </div>
             </div>
         </div>

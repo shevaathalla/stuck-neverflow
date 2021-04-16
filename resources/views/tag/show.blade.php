@@ -16,7 +16,7 @@
                     {{ $question->created_at }}</h6>
                 <p class="card-text">{!! $question->text !!}</p>                
             </div>
-            <div class="card-footer">
+            <div class="card-footer">                
                 <a href="{{ route('question.show', ['question' => $question]) }}" class="card-link">Show Detail</a>
             </div>
         </div>

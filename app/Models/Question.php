@@ -19,6 +19,10 @@ class Question extends Model
         return $this->belongsToMany(Tag::class);
     }
 
+    public function answers(){
+        return $this->hasMany(Answer::class);
+    }
+    
     public function comments(){
         return $this->hasMany(Comment::class);
     }
