@@ -36,7 +36,7 @@
                     <div class="row justify-content-md-center">
                         @if ($user->avatar != null)
                         <div class="mb-4 mt-4">
-                            <img class="image rounded-circle" src="{{asset('storage/images/'.$user->avatar)}}" style="width: 150px; height: 150px;" alt="">
+                            <img class="image rounded-circle" src="{{asset('storage/images/avatar/'.$user->avatar)}}" style="width: 150px; height: 150px;" alt="">
                         </div>                 
                         @endif                               
                     </div>

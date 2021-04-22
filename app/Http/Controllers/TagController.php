@@ -11,7 +11,7 @@ class TagController extends Controller
     public function __construct()
     {
         $this->middleware(['auth','admin'])->except([
-            'index','show'
+            'index','question','article'
         ]);
     }
     /**
@@ -24,9 +24,13 @@ class TagController extends Controller
         $tags = Tag::orderBy('name','asc')->get();
         return view('tag.index',compact('tags'));
     }
-    public function show(Tag $tag)
+    public function question(Tag $tag)
     {
-        return view('tag.show',compact('tag'));
+        return view('tag.question',compact('tag'));
+    }
+    public function article(Tag $tag)
+    {
+        return view('tag.article',compact('tag'));
     }
     /**
      * Store a newly created resource in storage.

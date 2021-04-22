@@ -3,7 +3,9 @@
     <title>SN - Edit</title>
 @endsection
 @section('js')
-<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<script src="https://cdn.tiny.cloud/1/u5e9kia2orymj5g7dyaljpmlw0is3g5f5aoz9lfopki3park/tinymce/5/tinymce.min.js"
+        referrerpolicy="origin"></script>    
+
 @endsection
 @section('content')
 <h2 class="text-gray-700">
@@ -30,7 +32,12 @@
 @push('scripts')
 <script>
     tinymce.init({
-      selector: '#text'
+            selector: '#text',
+            plugins: 'a11ychecker advcode casechange linkchecker autolink lists checklist permanentpen powerpaste table advtable  tinymcespellchecker',
+            toolbar: 'a11ycheck casechange checklist code permanentpen table',
+            toolbar_mode: 'floating',
+            tinycomments_mode: 'embedded',
+            tinycomments_author: 'Author name',
     });
   </script>
 @endpush

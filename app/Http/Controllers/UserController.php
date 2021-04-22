@@ -54,10 +54,10 @@ class UserController extends Controller
         if($request->file('avatar')){
             $file= $request->file('avatar');
             $filename = $request->avatar->getClientOriginalName();
-            Image::make($file)->resize(300, 300)->save( public_path('storage/images/' . $filename ) );
+            Image::make($file)->resize(300, 300)->save( public_path('storage/images/avatar/' . $filename ) );
             
             $user->update(['avatar'=>$filename]);            
         }        
-        return redirect()->back()->with('toast_success', 'User Berhasil diupdate');
+        return redirect(route('user.show',['user'=>$user]))->with('toast_success', 'User Berhasil diupdate');
     }
 }

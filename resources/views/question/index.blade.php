@@ -25,7 +25,7 @@
               <h6 class="card-subtitle mb-2 text-muted">Made by: {{ $question->user->name }} on {{ $question->created_at }}</h6>
               <div class="card-text text-gray-900">{!! Str::words($question->text, 50, $end=' ...')   !!}</div>
               @foreach ($question->tags as $tag)
-              <a href="{{ route('tag.show',['tag' =>$tag]) }}" class="btn btn-primary my-1">{{ $tag->name  }}</a>
+              <a href="{{ route('tag.question',['tag' =>$tag]) }}" class="btn btn-primary my-1">{{ $tag->name  }}</a>
               @endforeach                            
             </div>
             <div class="card-footer">

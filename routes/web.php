@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AnswerController;
+use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\ProfileController;
@@ -9,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
+use App\Models\Article;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,8 +35,10 @@ Route::prefix('question/{question}')->group(function () {
     Route::post('/generatepdf',[PDFController::class,'question'])->name('question.generatepdf');
 });
 Route::resource('tag', TagController::class, [
-    'only' => ['index', 'show', 'store', 'destroy']
+    'only' => ['index', 'store', 'destroy']
 ]);
+Route::get('/tag/{tag}/question',[TagController::class,'question'])->name('tag.question');
+Route::get('/tag/{tag}/article',[TagController::class,'article'])->name('tag.article');
 Route::view('/dashboard', 'dashboard')->name('dashboard');
 Route::view('/', 'home')->name('home');
 Route::prefix('comment')->group(function () {
@@ -48,4 +52,6 @@ Route::prefix('comment')->group(function () {
 Route::resource('user', UserController::class,[
     'except' => ['create']
 ]);
+Route::resource('article',ArticleController::class);
+Route::get('user/{user}/article', [ArticleController::class, 'userArticle'])->name('user.article');
 Route::view('/test', 'pdf.question');

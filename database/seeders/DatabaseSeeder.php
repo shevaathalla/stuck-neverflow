@@ -3,8 +3,6 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Database\Seeders\UserSeeder;
-use Database\Seeders\QuestionSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -21,7 +19,9 @@ class DatabaseSeeder extends Seeder
             QuestionSeeder::class,
             AnswerSeeder::class,
             TagSeeder::class,
-            QuestionTagSeeder::class,                       
+            QuestionTagSeeder::class,
+            ArticleSeeder::class,
+            ArticleTagSeeder::class,                       
         ]);
     }
 }
