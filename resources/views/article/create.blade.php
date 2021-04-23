@@ -43,7 +43,7 @@ referrerpolicy="origin"></script>
             </select>
             <small id="tagsHelp" class="form-text text-muted">Separate ur tags using comma ( , )</small>
             <div class="my-4">
-                <button type="submit">Submit</button>
+                <button type="submit" class="btn btn-outline-primary"> <i class="fa fa-arrow-alt-circle-right"></i> Submit</button>
             </div>
         </form>
     </div>

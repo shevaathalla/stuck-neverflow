@@ -24,7 +24,7 @@ class CommentController extends Controller
         return redirect(route('question.show',['question'=>$question]))->with('toast_success','Comment berhasil ditambahkan');
     }
 
-    public function commentAnswerStore(Request $request,Question $question, Answer $answer){
+    public function commentAnswerStore(Request $request, Answer $answer){
         Comment::create([
             'text' => $request->text,
             'answer_id' => $answer->id,

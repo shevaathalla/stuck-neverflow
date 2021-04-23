@@ -93,6 +93,7 @@
         <div class="links">
             <a href="{{ route('question.index') }}">Question List</a>
             <a href="{{ route('tag.index') }}">Tag List</a>
+            <a href="{{ route('article.index') }}">Article List</a>
             @auth
             <a href="{{ route('dashboard') }}">Dashboard</a>
             @endauth

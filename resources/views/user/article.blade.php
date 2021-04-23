@@ -3,57 +3,66 @@
     <title>SN - Article List</title>
 @endsection
 @section('content')
-<div class="row">
-    <div class="col-md-8">
-        <div class="float-md-left">
-            <h2>Show All Article Made by {{ $user->name }}</h2>
-        </div>
-    </div>
-    <div class="col-md-4">
-        @if (Auth::id() == $user->id )
-        <div class="float-md-right">
-            <a href="{{ route('article.create') }}" class="btn btn-success"> <i class="fas fa-plus"></i> Create</a>
-        </div>    
-        @endif        
-    </div>
-</div>
-    <hr>
-    @foreach ($articles as $article)
-    <div class="card my-2">        
-        <div class="card-body">            
-            <div class="row">
-                <div class="col-md-3">
-                    <img src="{{ asset('storage/images/thumbnail/300/'.$article->picture) }}" alt="" width="100%" height="100%">
-                </div>
-                <div class="col-md-9">
-                    <div class="card-title">
-                        <div class="text-gray-900">
-                            <h5 class="font-weight-bold">{{ $article->title }}</h5>
-                        </div>                
-                    </div>
-                    <div class="card-subtitle">
-                        Created at : {{ $article->created_at }}
-                    </div>
-                    <hr>
-                    <div class="card-text">
-                        <div class="text-gray-800">
-                            {!! Str::words($article->content, 100, $end=' ...') !!}
-                        </div>                        
-                    </div>
-                </div>
-            </div>            
-        </div>
-        <div class="card-footer">
+    <div class="row">
+        <div class="col-md-8">
             <div class="float-md-left">
-                Creator : <a href="{{ route('user.show',['user'=> $article->user]) }}">{{ $article->user->name }}</a>
-            </div>
-            <div class="float-md-right">
-                <div class="card-link">
-                    <a href="">Show More</a>
-                </div>
+                <h2>Show All Article Made by {{ $user->name }}</h2>
             </div>
         </div>
+        <div class="col-md-4">
+            @if (Auth::id() == $user->id)
+                <div class="float-md-right">
+                    <a href="{{ route('article.create') }}" class="btn btn-success"> <i class="fas fa-plus"></i>
+                        Create</a>
+                </div>
+            @endif
+        </div>
     </div>
-    @endforeach        
-        {{ $articles->links() }}    
+    <hr>
+    <div class="card shadow">
+        <div class="card-header text-primary font-weight-bold">
+            Article List
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered table-responsive-md" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <td>ID</td>
+                        <td>Thumbnail</td>
+                        <td>Title</td>
+                        <td>Text</td>
+                        <td>Posted at</td>
+                        <td>Last updated at</td>
+                        <td>Action</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($articles as $article)
+                    <tr>
+                        <td>{{ $article->id }}</td>
+                        <td><img class="img-thumbnail" src="{{ asset('storage/images/thumbnail/300/'.$article->picture) }}" alt="" width="100px" height="auto"></td>
+                        <td> <a class="font-weight-bold" href="{{ route('article.show',['article'=>$article]) }}">  {{ $article->title }}</a></td>
+                        <td>{!! Str::words($article->content, 15, $end=' ...')   !!}</td>
+                        <td>{{ $article->created_at }}</td>
+                        <td>{{ $article->updated_at }}</td>
+                        <td>
+                            <form class="form-inline" action="{{ route('article.destroy',['article' =>$article]) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <a href="{{ route('article.edit',['article'=> $article]) }}" class="btn btn-warning">Edit  <i class="fas fa-edit"></i></a>
+                                <button type="submit" class="btn btn-danger mx-2" onclick="return confirm('are you sure want to delete this article?')">Delete<i class="fas fa-trash"></i></button>
+                            </form>
+                        </td>
+                    </tr>                        
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 @endsection
+@push('scripts')
+    <script src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('js/demo/datatables-demo.js') }}"></script>
+@endpush

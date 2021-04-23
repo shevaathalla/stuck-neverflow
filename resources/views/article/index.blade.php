@@ -10,7 +10,7 @@
         <div class="card-body">            
             <div class="row">
                 <div class="col-md-3">
-                    <img src="{{ asset('storage/images/thumbnail/300/'.$article->picture) }}" alt="" width="100%" height="100%">
+                    <img  class="img-thumbnail" src="{{ asset('storage/images/thumbnail/300/'.$article->picture) }}" alt="">
                 </div>
                 <div class="col-md-9">
                     <div class="card-title">
@@ -36,7 +36,7 @@
             </div>
             <div class="float-md-right">
                 <div class="card-link">
-                    <a href="">Show More</a>
+                    <a href="{{ route('article.show',['article'=>$article]) }}">Show More</a>
                 </div>
             </div>
         </div>

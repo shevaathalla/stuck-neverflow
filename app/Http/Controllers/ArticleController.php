@@ -11,6 +11,17 @@ use Intervention\Image\Facades\Image;
 
 class ArticleController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware(['article.maker','auth'])->except([
+            'index','userArticle'
+        ]);
+
+        $this->middleware(['user','auth'])->only([
+            'userArticle'
+        ]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -62,7 +73,7 @@ class ArticleController extends Controller
             $file= $request->file('thumbnail');
             $filename = $request->thumbnail->getClientOriginalName();
             Image::make($file)->resize(300, 300)->save( public_path('storage/images/thumbnail/300/' . $filename ) );
-            Image::make($file)->resize(1920, 1080)->save( public_path('storage/images/thumbnail/landscape/' . $filename ) );
+            Image::make($file)->resize(1200, 628)->save( public_path('storage/images/thumbnail/landscape/' . $filename ) );
             
             $article->update(['picture'=>$filename]);
         }        
@@ -78,7 +89,8 @@ class ArticleController extends Controller
      */
     public function show(Article $article)
     {
-        //
+        $articles = Article::orderBy('created_at','DESC')->paginate(6);
+        return view('article.show',compact('article','articles'));
     }
 
     /**
@@ -89,7 +101,7 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
-        //
+        return view('article.edit',compact('article'));
     }
 
     /**
@@ -101,7 +113,12 @@ class ArticleController extends Controller
      */
     public function update(Request $request, Article $article)
     {
-        //
+        Article::where('id',$article->id)->update([
+            'title' => $request->title,
+            'content' => $request->text,
+        ]);
+
+        return redirect(route('user.article',['user'=> $article->user]))->with('toast_success','Artikel berhasil diupdate');
     }
 
     /**
@@ -112,11 +129,12 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
-        //
+        Article::destroy($article->id);
+        return redirect(route('user.article',['user' => $article->user]))->with('toast-success','Artikel berhasil dihapus');
     }
 
     public function userArticle(User $user){
-        $articles = Article::where('user_id',$user->id)->paginate(5);
+        $articles = Article::where('user_id',$user->id)->orderBy('created_at','DESC')->get();
         return view('user.article',compact(['articles','user']));
     }
 }

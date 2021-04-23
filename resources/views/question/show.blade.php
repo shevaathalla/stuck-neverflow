@@ -32,7 +32,7 @@
             <h3 class="card-title text-primary">{{ $question->title }}</h5>
                 <div class="card-text text-gray-900" style="font-size: 20px">{!! $question->text !!}</div>
                 @foreach ($question->tags as $tag)
-                    <a href="{{ route('tag.show', ['tag' => $tag]) }}"
+                    <a href="{{ route('tag.question', ['tag' => $tag]) }}"
                         class="btn btn-primary round my-1" style="font-size: 70%">{{ $tag->name }}</a>
                 @endforeach
         </div>
