@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Answer;
+use App\Models\Article;
 use App\Models\Comment;
 use App\Models\Question;
 use Illuminate\Http\Request;
@@ -33,11 +34,23 @@ class CommentController extends Controller
         return redirect(route('question.show',['question'=>$answer->question]))->with('toast_success','Comment berhasil ditambahkan');
     }
 
+    public function commentArticleStore(Request $request, Article $article){
+        Comment::create([
+            'text' => $request->text,
+            'article_id' => $article->id,
+            'user_id' => Auth::id() ? Auth::id() : 'anonymous',
+        ]);
+        return redirect(route('article.show',['article'=>$article]))->with('toast_success','Comment berhasil ditambahkan');
+    }
+
     public function commentQuestionCreate(Question $question){
         return view('comment.commentQuestionCreate',compact('question'));
     }
     public function commentAnswerCreate(Answer $answer){
         return view('comment.commentAnswerCreate',compact('answer'));
+    }
+    public function commentArticleCreate(Article $article){
+        return view('comment.commentArticleCreate',compact('article'));
     }
     public function destroy(Comment $comment){
         Comment::destroy($comment->id);

@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Article extends Model
+class Notification extends Model
 {
     use HasFactory;
 
@@ -15,11 +15,11 @@ class Article extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function tags(){
-        return $this->belongsToMany(Tag::class);
+    public function question(){
+        return $this->belongsTo(Question::class);
     }
 
-    public function comments(){
-        return $this->hasMany(Comment::class);
+    public function answer(){
+        return $this->belongsTo(Answer::class);
     }
 }

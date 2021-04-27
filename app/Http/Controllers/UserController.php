@@ -12,6 +12,13 @@ class UserController extends Controller
 {
     public function __construct()
     {
+        $this->middleware(['auth', 'user'])->except([
+            'show', 'index'
+        ]);
+
+        $this->middleware(['admin'])->only([
+            'index'
+        ]);
     }
 
     public function index()
@@ -29,35 +36,39 @@ class UserController extends Controller
         return view('user.edit', compact('user'));
     }
 
-    public function update(Request $request)
-    {              
+    public function update(Request $request, User $user)
+    {
         $validated = $request->validate([
             'name' => 'required', 'string', 'max:255',
             'email' => 'required', 'string', 'email', 'max:255', 'unique:users',
             'avatar' => 'mimes:png,jpg,jpeg,gif,svg',
-            'current_password' => 'nullable|required_with:new_password',
-            'new_password' => 'nullable|min:8|max:12|required_with:current_password',
+            'current_password' => 'required',
+            'new_password' => 'nullable|min:8|max:12|',
             'password_confirmation' => 'nullable|min:8|max:12|required_with:new_password|same:new_password'
         ]);
 
+        // dd($request);
         $user = User::findOrFail(Auth::user()->id);
-        $user->name = $request->input('name');
-        $user->email = $request->input('email');
         if (!is_null($request->input('current_password'))) {
             if (Hash::check($request->input('current_password'), $user->password)) {
-                $user->password =  bcrypt( $request->input('new_password'));
+                $user->name = $request->input('name');
+                $user->email = $request->input('email');
+                if ($request->file('avatar')) {
+                    $file = $request->file('avatar');
+                    $filename = $request->avatar->getClientOriginalName();
+                    Image::make($file)->resize(300, 300)->save(public_path('storage/images/avatar/' . $filename));
+
+                    $user->update(['avatar' => $filename]);
+                }
+                if (!is_null($request->input('new_password'))) {
+                    $user->password =  bcrypt($request->input('new_password'));
+                }
+                $user->save();
+                return redirect(route('user.show', ['user' => $user]))->with('toast_success', 'User Berhasil diupdate');
             } else {
-                return redirect()->back()->with('toast_danger','Gagal');
+                return redirect()->back()->with('toast_danger', 'Password Salah');
             }
         }        
-        $user->save();
-        if($request->file('avatar')){
-            $file= $request->file('avatar');
-            $filename = $request->avatar->getClientOriginalName();
-            Image::make($file)->resize(300, 300)->save( public_path('storage/images/avatar/' . $filename ) );
-            
-            $user->update(['avatar'=>$filename]);            
-        }        
-        return redirect(route('user.show',['user'=>$user]))->with('toast_success', 'User Berhasil diupdate');
+        return redirect()->back()->with('toast_danger', 'User Tidak diupdate');        
     }
 }

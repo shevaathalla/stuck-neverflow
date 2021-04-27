@@ -1,7 +1,7 @@
 <div class="card mb-2">
     <div class="card-body {{ $answer->approve == 1 ? 'bg-success text-gray-100' : ' ' }}">
         <h6 class="card-title {{ $answer->approve == 1 ? 'bg-success text-white' : 'text-gray-900' }}">Answer Made by
-            <a href="{{ route('user.show',['user' => $answer->user]) }}">{{ $answer->user->name }}</a>
+            <a href="{{ route('user.show',['user' => $answer->user]) }}" class="{{ $answer->approve == 1 ? 'text-dark' : '' }}">{{ $answer->user->name }}</a>
             {{ $answer->approve == 1 ? '(APPROVED By Question Maker)' : ' ' }}</h6>
         <h6 class="card-subtitle mb-2">On {{ $answer->created_at }}</h6>
         <h5 class="text-gray-900">{!! $answer->text !!}</h5>

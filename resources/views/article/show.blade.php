@@ -27,36 +27,37 @@
                         <div class="col">
                             @auth
                             <div class="float-right">
-                                <a href="" class="btn btn-success">Create Comment <i class="fas fa-plus ml-2"></i></a>    
+                                <a href="{{ route('commentArticle.create',['article' => $article]) }}" class="btn btn-success">Create Comment <i class="fas fa-plus ml-2"></i></a>    
                             </div>                   
                             @endauth                                     
                         </div>                                                                        
                     </div>                    
                     <hr>
+                    @foreach ($article->comments as $comment)
                     <div class="card shadow">
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-md-3">
-                                    <img class="img-profile rounded-circle" src="{{ asset('img/undraw_profile.svg') }}" alt="">
+                                <div class="col-md-2">
+                                    <img class="img-profile rounded-circle" src="{{ asset('storage/images/avatar/'.$comment->user->avatar) }}" alt="avatar" width="100px" height="100px">
                                 </div>
-                                <div class="col-md-9">
+                                <div class="col-md-10">
                                     <div class="card-title">
                                         <div class="text-gray-700 font-weight-bold">
-                                            Name 
+                                            {{ $comment->user->name }} 
                                         </div>
-                                        now
+                                        {{ $comment->created_at }}
                                     </div>                                    
                                     <div class="card-text">
-                                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit libero doloremque corrupti, quae consequatur tenetur repellat mollitia consectetur, odit culpa exercitationem vel harum dolorem! Temporibus tenetur animi quasi rerum natus?
+                                        {{ $comment->text }}
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>                    
+                    </div>                   
+                    @endforeach                     
                 </div>        
             </div>
-            <div class="col-md-3"id="sticky-sidebar">                
-                <div class="sticky-top">
+            <div class="col-md-3"id="sticky-sidebar">                                
                     <h4 class="mt-2 ml-2 border-bottom-primary font-weight-bold">New Article <i
                         class="fa fa-fire text-primary"></i></h4>
                 @foreach ($articles as $a)
@@ -72,8 +73,7 @@
                             </div>
                         </div>
                     </div>
-                @endforeach
-                </div>                    
+                @endforeach                
             </div>
         </div>        
     </div>

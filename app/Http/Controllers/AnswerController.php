@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Answer;
+use App\Models\Notification;
 use App\Models\Question;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -35,10 +36,18 @@ class AnswerController extends Controller
      */
     public function store(Request $request, Question $question)
     {
-        Answer::create([
+        $answer = Answer::create([
             'text' => $request->text,
             'question_id' =>$question->id,
             'user_id' => Auth::id(),
+        ]);
+
+        //make notification to question maker
+        Notification::create([
+            'user_id' => $question->user->id,
+            'message' => 'Your question has been answered by '.$answer->user->name,
+            'type' => 'question',
+            'question_id' => $question->id
         ]);
         return redirect(route('question.show',['question'=>$question]))->with('toast_success','Jawaban berhasil diinput');
     }
@@ -80,6 +89,14 @@ class AnswerController extends Controller
     {
         Answer::where('id',$answer->id)->update([
             'approve' => true,
+        ]);
+
+        //make notification to answer maker
+        Notification::create([
+            'user_id' => $answer->user->id,
+            'message' => 'Your answer has been approved',
+            'type' => 'answer',
+            'answer_id' => $answer->id,
         ]);
         return redirect(route('question.show',['question' => $question]))->with('toast_success','Jawaban berhasil diapprove!!');
     }

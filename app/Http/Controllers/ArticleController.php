@@ -14,13 +14,17 @@ class ArticleController extends Controller
 
     public function __construct()
     {
-        $this->middleware(['article.maker','auth'])->except([
-            'index','userArticle'
+        $this->middleware(['article.maker','auth'])->only([
+            'edit','update','delete'
         ]);
 
         $this->middleware(['user','auth'])->only([
             'userArticle'
         ]);
+        $this->middleware('auth')->only([
+            'create','store'
+        ]);
+
     }
     /**
      * Display a listing of the resource.

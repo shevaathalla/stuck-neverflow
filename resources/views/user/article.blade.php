@@ -46,11 +46,19 @@
                         <td>{{ $article->created_at }}</td>
                         <td>{{ $article->updated_at }}</td>
                         <td>
-                            <form class="form-inline" action="{{ route('article.destroy',['article' =>$article]) }}" method="POST">
+                            <form action="{{ route('article.destroy',['article' =>$article]) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <a href="{{ route('article.edit',['article'=> $article]) }}" class="btn btn-warning">Edit  <i class="fas fa-edit"></i></a>
-                                <button type="submit" class="btn btn-danger mx-2" onclick="return confirm('are you sure want to delete this article?')">Delete<i class="fas fa-trash"></i></button>
+                                <div class="row">
+                                    <div class="col">
+                                        <a href="{{ route('article.edit',['article'=> $article]) }}" class="btn btn-block btn-warning my-2">Edit  <i class="fas fa-edit ml-2"></i></a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <button type="submit" class="btn btn-block btn-danger" onclick="return confirm('are you sure want to delete this article?')">Delete<i class="fas fa-trash ml-2"></i></button>
+                                    </div>    
+                                </div>                                                                
                             </form>
                         </td>
                     </tr>                        

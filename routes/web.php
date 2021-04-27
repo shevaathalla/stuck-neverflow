@@ -3,6 +3,7 @@
 use App\Http\Controllers\AnswerController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -53,5 +54,11 @@ Route::resource('user', UserController::class,[
     'except' => ['create']
 ]);
 Route::resource('article',ArticleController::class);
+Route::prefix('article')->group(function(){
+    Route::get('{article}/comment/create',[CommentController::class,'commentArticleCreate'])->name('commentArticle.create');
+    Route::post('{article}/comment',[CommentController::class,'commentArticleStore'])->name('commentArticle.store');
+});
 Route::get('user/{user}/article', [ArticleController::class, 'userArticle'])->name('user.article');
+Route::get('user/{user}/notification', [NotificationController::class,'index'])->name('user.notification');
+Route::get('user/{user}/notification/{notification}', [NotificationController::class,'show'])->name('notification.show');
 Route::view('/test', 'pdf.question');
