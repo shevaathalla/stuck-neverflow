@@ -20,6 +20,7 @@
     <!-- Custom styles for this template-->
     <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
     @yield('style')
+    @yield('js')
 </head>
 @auth
 <body class=" {{ Auth::user()->role->name =='admin' ? 'bg-gradient-dark' : 'bg-gradient-primary' }}">
@@ -29,6 +30,7 @@
 @endguest
 
     @yield('content')
+    @yield('script')
     <!-- Bootstrap core JavaScript-->
     <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.js') }}"></script>
@@ -39,6 +41,5 @@
     <!-- Custom scripts for all pages-->
     <script src="{{ asset('js/sb-admin-2.min.js') }}"></script>
 
-</body>
-
+</body>    
 </html>

@@ -14,7 +14,7 @@
                         <button class="btn btn-primary w-75" type="button" data-toggle="collapse"
                             data-target="#collapseAnswer{{ $answer->id }}" aria-expanded="false"
                             aria-controls="collapseAnswer">
-                            Show Comments
+                            Show Comments ({{ $answer->comments->count() }})
                         </button>
                         <a href="{{ route('commentAnswer.create', ['answer' => $answer]) }}"
                             class="btn btn-success w-auto ml-3">Add Comment</a>

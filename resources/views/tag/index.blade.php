@@ -47,7 +47,7 @@
                                         @method('delete')
                                         <a href="{{ route('tag.question', ['tag' => $tag]) }}" class="btn btn-info"> <i
                                                 class="fas fa-question-circle"></i> Question</a>
-                                        <a href="{{ route('tag.article', ['tag' => $tag]) }}" class="btn btn-outline-warning"> <i
+                                        <a href="{{ route('tag.article', ['tag' => $tag]) }}" class="btn btn-warning text-dark"> <i
                                                 class="fas fa-newspaper"></i> Article</a>
                                         <button type="submit" class="btn btn-danger"
                                             onclick="return confirm('are you sure want to delete this tag?')"> <i

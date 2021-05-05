@@ -5,13 +5,12 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PDFController;
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
-use App\Models\Article;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,13 +34,18 @@ Route::prefix('question/{question}')->group(function () {
     Route::put('/answer/{answer}/unapprove', [AnswerController::class, 'unapprove'])->name('answer.unapprove')->middleware('auth');
     Route::post('/generatepdf',[PDFController::class,'question'])->name('question.generatepdf');
 });
+
 Route::resource('tag', TagController::class, [
     'only' => ['index', 'store', 'destroy']
 ]);
+
 Route::get('/tag/{tag}/question',[TagController::class,'question'])->name('tag.question');
 Route::get('/tag/{tag}/article',[TagController::class,'article'])->name('tag.article');
-Route::view('/dashboard', 'dashboard')->name('dashboard');
-Route::view('/', 'home')->name('home');
+
+Route::get('/', [HomeController::class,'index'] )->name('home');
+Route::post('/searchTag',[HomeController::class,'searchTag'])->name('tag.search');
+
+
 Route::prefix('comment')->group(function () {
     Route::get('{question}/create', [CommentController::class, 'commentQuestionCreate'])->name('commentQuestion.create');
     Route::get('answer/{answer}/create', [CommentController::class, 'commentAnswerCreate'])->name('commentAnswer.create');
@@ -54,11 +58,16 @@ Route::resource('user', UserController::class,[
     'except' => ['create']
 ]);
 Route::resource('article',ArticleController::class);
+
 Route::prefix('article')->group(function(){
     Route::get('{article}/comment/create',[CommentController::class,'commentArticleCreate'])->name('commentArticle.create');
     Route::post('{article}/comment',[CommentController::class,'commentArticleStore'])->name('commentArticle.store');
 });
+
 Route::get('user/{user}/article', [ArticleController::class, 'userArticle'])->name('user.article');
+Route::get('/user/{user}/dashboard', [UserController::class,'dashboard'])->name('dashboard');
+
 Route::get('user/{user}/notification', [NotificationController::class,'index'])->name('user.notification');
 Route::get('user/{user}/notification/{notification}', [NotificationController::class,'show'])->name('notification.show');
+
 Route::view('/test', 'pdf.question');

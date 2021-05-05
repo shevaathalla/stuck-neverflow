@@ -39,11 +39,11 @@
         <div class="card-footer">
             <div class="form-group">
                 <div class="row">
-                    <div class="col-md-9">
+                    <div class="col-md-9">                        
                         <div class="form-group form-inline">
                             <button class="btn btn-primary w-75 mr-3" type="button" data-toggle="collapse"
                                 data-target="#collapseComment" aria-expanded="false" aria-controls="collapseComment">
-                                Show Comments
+                                Show Comments ({{ $question->comments->count() }})
                             </button>
                             <a href="{{ route('commentQuestion.create', ['question' => $question]) }}"
                                 class="btn btn-success w-auto mt-auto">Add Comment</a>

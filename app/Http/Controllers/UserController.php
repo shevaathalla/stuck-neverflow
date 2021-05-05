@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Article;
+use App\Models\Question;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -70,5 +72,12 @@ class UserController extends Controller
             }
         }        
         return redirect()->back()->with('toast_danger', 'User Tidak diupdate');        
+    }
+
+    public function dashboard(User $user){
+        $questions = Question::all();
+        $articles = Article::all();
+
+        return view('dashboard',compact(['questions','articles']));
     }
 }
