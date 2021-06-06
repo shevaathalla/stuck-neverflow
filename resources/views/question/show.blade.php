@@ -12,7 +12,7 @@
         <div class="card-header">
             <div class="row">
                 <div class="col">
-                    <h3 class="text-lg"> Made by: {{ $question->user->name }} on {{ $question->created_at }}</h3>
+                    <h3 class="text-lg">Made by: <a href="{{ route('user.show',['user'=>$question->user]) }}"> {{ $question->user->name }} </a>on {{ $question->created_at }}</h3>
                 </div>
                 <div class="col">
                     <form action="{{ route('question.generatepdf',['question'=> $question]) }}" method="post" class="form-inline float-right">

@@ -19,6 +19,9 @@
             @if (Auth::id() == $user->id)
             <div class="float-right">
                 <a href="{{ route('user.edit',['user'=> Auth::user()]) }}" class="btn btn-success"> Edit Profile</a>
+                @if (Auth::user()->email_verified_at == null)
+                <a href="{{ route('verification.notice') }}" class="btn btn-primary"> Verify</a>
+                @endif                
             </div>
             @endif            
         </div>
@@ -46,10 +49,7 @@
                             </div>
                             <div class="col-md">
                                 <h5 class="text-center font-weight-bold">Answer Posted</h5>                                
-                            </div>
-                            <div class="col-md">
-                                <h5 class="text-center font-weight-bold">Points</h5>
-                            </div>                                         
+                            </div>                                                       
                     </div>
                     <div class="row">
                         <div class="col-md">
@@ -57,10 +57,7 @@
                         </div>
                         <div class="col-md">
                             <p class="text-center" >{{ count($user->answers) }}</p>
-                        </div>
-                        <div class="col-md">
-                            <p class="text-center" >0</p>
-                        </div>                                         
+                        </div>                                                   
                 </div>
                 </div>                
             </div>            

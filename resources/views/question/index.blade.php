@@ -22,7 +22,7 @@
             </div>
             <div class="card-body">
               <h5 class="card-title text-primary font-weight-bold">{{ $question->title }}</h5>
-              <h6 class="card-subtitle mb-2 text-muted">Made by: {{ $question->user->name }} on {{ $question->created_at }}</h6>
+              <h6 class="card-subtitle mb-2 text-muted">Made by: <a href="{{ route('user.show',['user'=>$question->user]) }}"> {{ $question->user->name }} </a> on {{ $question->created_at }}</h6>
               <div class="card-text text-gray-900">{!! Str::words($question->text, 50, $end=' ...')   !!}</div>
               @foreach ($question->tags as $tag)
               <a href="{{ route('tag.question',['tag' =>$tag]) }}" class="btn btn-primary my-1">{{ $tag->name  }}</a>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Answer;
 use App\Models\Notification;
 use App\Models\Question;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -49,6 +50,7 @@ class AnswerController extends Controller
             'type' => 'question',
             'question_id' => $question->id
         ]);
+        
         return redirect(route('question.show',['question'=>$question]))->with('toast_success','Jawaban berhasil diinput');
     }
 
