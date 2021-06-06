@@ -61,7 +61,7 @@
                                             <hr style="padding: 0px; margin: 0px">
                                         </div>
                                         <div class="col">
-                                            @if (Auth::id() == $comment->user_id)
+                                            @if (Auth::id() == $comment->user_id || Auth::user()->role->name == 'admin' )
                                                 <a href="{{ route('comment.destroy', ['comment' => $comment]) }}"
                                                     class="btn btn-danger"
                                                     data-target="#deleteQuestionCommentModal{{ $comment->id }}"
@@ -110,7 +110,7 @@
                     </div>
                     <div class="col">
                         @auth
-                            @if (Auth::id() == $question->user_id)
+                            @if (Auth::id() == $question->user_id || Auth::user()->role->name == 'admin')
                                 <a href="{{ route('question.edit', ['question' => $question]) }}"
                                     class="btn btn-info float-md-right"><i class="fa fa-edit"> Edit</i></a>
                                 <a href="{{ route('question.destroy', ['question' => $question]) }}"

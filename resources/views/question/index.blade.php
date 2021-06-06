@@ -32,6 +32,7 @@
                 <a href="{{ route('question.show',['question' => $question]) }}" class="card-link">Show Detail</a>              
             </div>
           </div>
-        @endforeach        
+        @endforeach
+        {{ $questions->links() }}        
     </div>    
 @endsection

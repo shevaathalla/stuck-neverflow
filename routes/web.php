@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\AnswerController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CommentController;
@@ -24,6 +25,9 @@ use App\Http\Controllers\HomeController;
 */
 
 Auth::routes(['verify' => true]);
+
+Route::get('auth/github', [AuthController::class,'redirectToProvider'])->name('login.github');
+Route::get('auth/github/callback', [AuthController::class,'handleProviderCallback']);
 
 Route::resource('question', QuestionController::class);
 Route::prefix('question/{question}')->group(function () {
@@ -55,7 +59,7 @@ Route::prefix('comment')->group(function () {
 });
 
 Route::resource('user', UserController::class,[
-    'except' => ['create']
+        
 ]);
 Route::resource('article',ArticleController::class);
 
@@ -65,8 +69,8 @@ Route::prefix('article')->group(function(){
 });
 
 Route::get('user/{user}/article', [ArticleController::class, 'userArticle'])->name('user.article');
-Route::get('/user/{user}/dashboard', [UserController::class,'dashboard'])->name('dashboard');
-
+Route::get('user/{user}/dashboard', [UserController::class,'dashboard'])->name('dashboard');
+Route::get('user/{user}/verify',[UserController::class,'verify'])->name('user.verify');
 Route::get('user/{user}/notification', [NotificationController::class,'index'])->name('user.notification');
 Route::get('user/{user}/notification/{notification}', [NotificationController::class,'show'])->name('notification.show');
 

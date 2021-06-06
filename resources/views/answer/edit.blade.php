@@ -3,7 +3,8 @@
     <title>SN - Edit Answer</title>
 @endsection
 @section('js')
-<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<script src="https://cdn.tiny.cloud/1/{{ env('TINY_API') }}/tinymce/5/tinymce.min.js"
+        referrerpolicy="origin"></script>
 @endsection
 @section('content')
 <h2 class="text-gray-700">

@@ -26,7 +26,7 @@ class QuestionController extends Controller
     }
     public function index()
     {
-        $questions = Question::orderBy('id', 'DESC')->get();
+        $questions = Question::orderBy('id', 'DESC')->paginate(10);
         // dd($questions);  
         return view('question.index', compact('questions'));
     }

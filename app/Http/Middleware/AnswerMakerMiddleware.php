@@ -18,7 +18,7 @@ class AnswerMakerMiddleware
     public function handle(Request $request, Closure $next)
 {        
         $answer = $request->route()->parameter('answer');        
-        if (Auth::id() == $answer->user_id) {
+        if (Auth::id() == $answer->user_id || Auth::user()->role->name == 'admin') {
             return $next($request);   
         }else{
             return abort(401);

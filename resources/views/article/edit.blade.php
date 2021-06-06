@@ -9,8 +9,8 @@
 @endsection
 
 @section('js')
-    <script src="https://cdn.tiny.cloud/1/u5e9kia2orymj5g7dyaljpmlw0is3g5f5aoz9lfopki3park/tinymce/5/tinymce.min.js"
-        referrerpolicy="origin"></script>
+    <script src="https://cdn.tiny.cloud/1/{{ env('TINY_API') }}/tinymce/5/tinymce.min.js" referrerpolicy="origin">
+    </script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js" defer></script>
 
@@ -21,7 +21,8 @@
     </h2>
     <hr class="">
     <div class="col-md-12">
-        <form action="{{ route('article.update',['article'=>$article]) }}" method="POST" autocomplete="off" enctype="multipart/form-data">
+        <form action="{{ route('article.update', ['article' => $article]) }}" method="POST" autocomplete="off"
+            enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="row">
@@ -32,8 +33,8 @@
             </div>
             <label for="text" class="col-form-label text-gray-700">Content</label>
             <textarea name="text" id="text" cols="30" rows="10">
-                    {{ $article->content }}
-                </textarea>
+                        {{ $article->content }}
+                    </textarea>
             <div class="my-4">
                 <button type="submit" class="btn btn-outline-primary"> <i class="fa fa-arrow-alt-circle-right"></i>
                     Update</button>

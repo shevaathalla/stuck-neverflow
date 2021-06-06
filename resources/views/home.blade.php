@@ -116,8 +116,9 @@
                         </div>                        
                     </div>
                     <div class="col-md-8">
-                        <select class="js-example-basic-single form-control-lg w-100 text-gray-800" style="height: 100%" name="tag">
+                        <select class="js-example-basic-single form-control-lg w-100 text-gray-900" id="searchTag" style="height: 100%" name="tag">
                             @foreach ($tags as $tag)
+                                <option></option>
                                 <option value="{{ $tag->id }}">{{ $tag->name }}</option>
                             @endforeach
                         </select>
@@ -133,8 +134,8 @@
 @section('script')
     <script>
         $(document).ready(function() {
-            $('.js-example-basic-single').select2({
-                placeholder: "Search tags",
+            $('#searchTag').select2({
+                placeholder: "Search tags",                
             });
         });
 

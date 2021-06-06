@@ -19,7 +19,7 @@ class QuestionMakerMiddleware
     {
 
         $question = $request->route()->parameter('question');
-        if (Auth::id() == $question->user_id) {
+        if (Auth::id() == $question->user_id || Auth::user()->role->name == 'admin') {
             return $next($request);   
         }else{
             return abort(401);

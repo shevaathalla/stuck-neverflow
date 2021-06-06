@@ -70,11 +70,19 @@
     </li>     
     @auth
     @if (Auth::user()->role->name == 'admin')
-    <li class="nav-item  {{ Route::is(['user.index']) ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('user.index') }}">
+    <li class="nav-item {{ Route::is(['user.index']) ? 'active' : ''  }}">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
+            aria-expanded="true" aria-controls="collapseThree">
             <i class="fas fa-fw fa-user-astronaut"></i>
-            <span>User List</span></a>
-    </li>     
+            <span>User</span>
+        </a>
+        <div id="collapseThree" class="{{ Route::is(['user.index']) ? 'collapse show' : 'collapse' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">                
+                <a class="collapse-item {{ Route::is('user.create') ? 'active' : '' }}" href="{{ route('user.create') }}"> <i class="fas fa-plus"></i>  Create</a>                
+                <a class="collapse-item {{ Route::is('user.index') ? 'active' : '' }}" href="{{ route('user.index') }}"> <i class="fas fa-list"></i>  List</a>                
+            </div>
+        </div>
+    </li>    
     @endif        
     @endauth    
 

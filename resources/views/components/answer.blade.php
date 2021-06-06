@@ -102,7 +102,7 @@
 
                     @endauth
                     @auth
-                        @if (Auth::user()->id == $answer->user->id)
+                        @if (Auth::user()->id == $answer->user->id || Auth::user()->role->name == 'admin')
                             <a href="{{ route('answer.edit', ['question' => $question, 'answer' => $answer]) }}"
                                 class="btn btn-secondary float-md-right ml-2"> <i class="fas fa-edit"> Edit</i></a>
                             <a href="{{ route('answer.destroy', ['answer' => $answer, 'question' => $question]) }}"
