@@ -1,32 +1,31 @@
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
-## About Stuck Neverflow
+# [Project] Stuck Neverflow
 
 Stuck Neverflow is a forum application created using the Laravel web development framework, this application uses a template from SBadmin
 
-## Home Page Stuck Neverflow
-<p><a href="https://ibb.co/n01pLkQ"><img src="public/img/ss/homepage.png" alt="homepage" border="0"></a></p>
+### Requirement:
 
-## Register Page Stuck Neverflow
-<p><a href="https://ibb.co/GnNmCx0"><img src="public/img/ss/register.png" alt="register" border="0"></a></p>
+- PHP >= 7.4
+- Laravel 8.x
+- Composer 2.x
+- NodeJS Stable v.14
 
-## Login Page Stuck Neverflow
-<p><a href="https://ibb.co/DtLJFDw"><img src="public/img/ss/login.png" alt="login" border="0"></a></p>
+### Install
 
-## User Level Access
-Stuck neverflow have 3 level access
-- [unsigned]
-- [member]
-- [admin]
+- Clone this repository
+- Run `composer install`
+- Run `cp .env.example .env`
+- Run `php artisan key:generate`
+- Settings `.env` file (mail driver, database, github API)
+- Run `npm install && npm run dev`
 
-## Dashboard
--[admin]
-<p><a href="https://ibb.co/P6SwBmJ"><img src="public/img/ss/dashboard_admin.png" alt="dashboard-admin" border="0"></a></p>
+### Database Migration and Seeder
 
--[member]
-<p><a href="https://ibb.co/qxmjYZG"><img src="public/img/ss/dashboard_member.png" alt="dashboard-member" border="0"></a></p>
+- Run `php artisan migrate --seed`
 
-## User Detail and Update Form
-<p><a href="https://ibb.co/6vFDgyp"><img src="public/img/ss/user_detail.png" alt="user-detail" border="0"></a></p>
+### Run your server
+- Run `php artisan serve`
 
-## Question
+### Open Browser
+- at `http://localhost:8000/`
